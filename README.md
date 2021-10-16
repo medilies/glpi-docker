@@ -1,9 +1,9 @@
-<img src="https://raw.githubusercontent.com/glpi-project/glpi/master/pics/logos/logo-GLPI-250-black.png" alt="GLPI Logo" width="200"/>
-<img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/vertical-logo-monochromatic.png?itok=erja9lKc" alt="Docker Logo" width="200"/>
-<img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" alt="MySQL Logo" width="200"/>
-<img src="https://www.phpmyadmin.net/static/images/logo.png?067b638aa2a2" alt="PHPMyAdmin Logo" width="200"/>
-<img src="http://www.apache.org/logos/res/httpd/default.png" alt="Apache Logo" width="200"/>
-<img src="https://i0.wp.com/phpmagazine.net/wp-content/uploads/2020/09/php8.png?w=420&ssl=1" alt="PHP8 Logo" width="200"/>
+<img src="https://glpi-project.org/wp-content/uploads/2017/03/logo-glpi-bleu-1.png" alt="GLPI Logo" width="75"/>
+<img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/vertical-logo-monochromatic.png?itok=erja9lKc" alt="Docker Logo" width="75"/>
+<img src="https://www.mysql.com/common/logos/logo-mysql-170x115.png" alt="MySQL Logo" width="75"/>
+<img src="https://www.phpmyadmin.net/static/images/logo.png?067b638aa2a2" alt="PHPMyAdmin Logo" width="75"/>
+<img src="http://www.apache.org/logos/res/httpd/default.png" alt="Apache Logo" width="75"/>
+<img src="https://i0.wp.com/phpmagazine.net/wp-content/uploads/2020/09/php8.png?w=420&ssl=1" alt="PHP8 Logo" width="75"/>
 
 ---
 
@@ -33,15 +33,18 @@ Note:
 
 ## Customization
 
-It is vital for the security of your deployment to edit the sercrets values within `./secrets`
+Before starting the containers :
 
-Open `./docker-compose.yml` and edit the the lines where you see the comment `# CHANGE` to suit your environment
+- It is vital for the security of your deployment to edit the sercrets values within `./secrets`
+- Open `./docker-compose.yml` and edit the the lines where you see the comment `# CHANGE` to suit your environment
 
-#TODO:
+
+# TODO:
 
 -   Automate "GRANT SELECT ON mysql.time_zone_name TO 'glpi_user'@'%'; FLUSH PRIVILEGES;"
 -   Automate Database backups
 -   Automate GLPI web folden backups
 -   Add interactivity to the shell scripts to select plugins to install and which versions
+-   Integrate OCS
 
 The project is under the MIT licence so feel free to fork it and contribute to it :)
