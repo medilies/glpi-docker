@@ -1,0 +1,94 @@
+version: "3.8"
+
+services:
+    glpidb:
+        image: mysql:8.0.26
+        restart: always
+        networks:
+            - web-db
+            - admin-db
+        volumes:
+            - glpi_database:/var/lib/mysql # CHANGE
+            - .\glpidb\scripts:/scripts
+        command: mysqld --default-authentication-plugin=mysql_native_password
+        secrets:
+            - MYSQL_DATABASE
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+        environment:
+            - TZ='Africa/Algiers' # CHANGE
+            - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
+            - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
+            - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+            - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+            # - MYSQL_INITDB_SKIP_TZINFO
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 20s
+            timeout: 10s
+            retries: 10
+
+    glpi:
+        image: my_glpi # CHANGE
+        build:
+            context: ./glpi
+            dockerfile: dockerfile
+            # args:
+        restart: always
+        networks:
+            - web-db
+        depends_on:
+            glpidb:
+                condition: service_healthy
+        ports:
+            - 50080:80 # CHANGE
+        volumes:
+            - .\glpi\scripts:/scripts
+        secrets:
+            - DB_SERVER
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+        environment:
+            - GLPI_ROOT_PATH=/var/www/html
+            - TZ='Africa/Algiers' # CHANGE
+            - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
+            - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
+            - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+            - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+
+    phpmyadmin:
+        image: phpmyadmin:5.0-apache
+        depends_on:
+            - glpidb
+        ports:
+            - 50180:80 # CHANGE
+        networks:
+            - admin-db
+        secrets:
+            - DB_SERVER
+        environment:
+            - TZ='Africa/Algiers' # CHANGE
+            - PMA_HOST_FILE=/run/secrets/DB_SERVER
+
+networks:
+    web-db:
+    admin-db:
+
+volumes:
+    glpi_database: # CHANGE
+
+secrets:
+    DB_SERVER:
+        file: ./secrets/DB_SERVER
+    MYSQL_DATABASE:
+        file: ./secrets/MYSQL_DATABASE
+    DB_USERNAME_ROOT:
+        file: ./secrets/DB_USERNAME_ROOT
+    MYSQL_ROOT_PASSWORD:
+        file: ./secrets/MYSQL_ROOT_PASSWORD
+    MYSQL_USER:
+        file: ./secrets/MYSQL_USER
+    MYSQL_PASSWORD:
+        file: ./secrets/MYSQL_PASSWORD
