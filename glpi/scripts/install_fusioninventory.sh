@@ -17,8 +17,6 @@ curl -L https://github.com/fusioninventory/fusioninventory-for-glpi/releases/dow
     glpicli plugin:activate fusioninventory &&
     chown -R www-data /var/www/html &&
     #
-    touch /var/spool/cron/crontabs/www-data &&
-    crontab -u www-data /var/spool/cron/crontabs/www-data &&
-    echo "*/1 * * * * /usr/bin/php5 /var/www/html/glpi/front/cron.php &>/dev/null" \
-        >>/var/spool/cron/crontabs/www-data &&
+    echo "*/1 * * * * php /var/www/html/front/cron.php &>/dev/null" \
+        >>/etc/crontab &&
     /etc/init.d/cron restart

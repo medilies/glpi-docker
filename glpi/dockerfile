@@ -55,6 +55,7 @@ RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/root/.bashrc
 
 
 COPY ./scripts /scripts
+RUN chmod +x /scripts/*
 
 RUN chown -R www-data .
 
