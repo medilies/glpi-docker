@@ -39,8 +39,7 @@ services:
         networks:
             - web-db
         depends_on:
-            glpidb:
-                condition: service_healthy
+            - glpidb
         ports:
             - 50080:80 # CHANGE
         volumes:
