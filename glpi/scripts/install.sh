@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Writter : Boudouma Mohamed Ilies (medilies)
+# Github repo: https://github.com/medilies/glpi
+# My Linkedin: https://www.linkedin.com/in/medilies/
+# -----------------------------------------------------------------------------
 
 /scripts/install_glpi.sh
 /scripts/install_fusioninventory.sh

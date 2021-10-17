@@ -1,4 +1,9 @@
 version: "3.3"
+#
+# Writter : Boudouma Mohamed Ilies (medilies)
+# Github repo: https://github.com/medilies/glpi
+# My Linkedin: https://www.linkedin.com/in/medilies/
+# -----------------------------------------------------------------------------
 
 services:
     glpidb:

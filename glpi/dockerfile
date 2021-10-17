@@ -1,5 +1,12 @@
 FROM php:8.0-apache-buster
 
+MAINTAINER medilies
+#
+# Writter : Boudouma Mohamed Ilies (medilies)
+# Github repo: https://github.com/medilies/glpi
+# My Linkedin: https://www.linkedin.com/in/medilies/
+# -----------------------------------------------------------------------------
+
 RUN apt-get update || apt-get update
 
 # PHP extentions

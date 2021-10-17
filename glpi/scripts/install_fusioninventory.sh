@@ -1,4 +1,10 @@
 #!/bin/bash
+# Simple line count example, using bash
+#
+# Writter : Boudouma Mohamed Ilies (medilies)
+# Github repo: https://github.com/medilies/glpi
+# My Linkedin: https://www.linkedin.com/in/medilies/
+# -----------------------------------------------------------------------------
 
 shopt -s expand_aliases
 source /root/.bashrc
