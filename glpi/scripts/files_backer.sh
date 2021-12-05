@@ -19,4 +19,4 @@
 TIMESTAMP=$(date +"%FT%H-%M-%S")
 BACKUP_FILE_NAME=glpi_web_backup_"$TIMESTAMP"
 
-tar ckzf /scripts/"$BACKUP_FILE_NAME".tar.gz /var/www/html
+tar ckzf /backups/"$BACKUP_FILE_NAME".tar.gz /var/www/html

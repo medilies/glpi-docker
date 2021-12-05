@@ -49,6 +49,7 @@ services:
             - 50080:80 # CHANGE
         volumes:
             - ./glpi/scripts:/scripts
+            - ./stack_dumps/web_files:/backups
         secrets:
             - DB_SERVER
             - MYSQL_DATABASE
@@ -75,6 +76,7 @@ services:
         environment:
             - TZ=Africa/Algiers # CHANGE
             - PMA_HOST_FILE=/run/secrets/DB_SERVER
+            - UPLOAD_LIMIT=300M
 
 networks:
     web-db:

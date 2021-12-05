@@ -1,6 +1,6 @@
 FROM php:8.0-apache-buster
 
-MAINTAINER medilies
+LABEL MAINTAINER medilies
 #
 # Writter : Boudouma Mohamed Ilies (medilies)
 # Github repo: https://github.com/medilies/glpi
@@ -52,6 +52,8 @@ RUN \
     && \
     apt-get clean
 
+COPY ./glpi.ini /usr/local/etc/php/conf.d/glpi.ini
+
 RUN apt-get install -y cron unzip && \
     apt-get clean
 
@@ -59,7 +61,6 @@ RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/root/.bashrc
 # RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/etc/bash.bashrc
 # RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/etc/bashrc
 # RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/etc/profile
-
 
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
