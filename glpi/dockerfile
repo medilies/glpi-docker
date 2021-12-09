@@ -67,4 +67,14 @@ RUN chmod +x /scripts/*
 
 RUN chown -R www-data .
 
+COPY glpi-cron /etc/cron.d/files_backer
+RUN chown root /etc/cron.d/files_backer 
+RUN chgrp root /etc/cron.d/files_backer 
+RUN chmod 0744 /etc/cron.d/files_backer 
+
+# RUN touch /var/log/cron.log
+
 EXPOSE 80 443
+
+COPY startup /usr/sbin
+CMD ["startup"]
