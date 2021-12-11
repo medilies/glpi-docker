@@ -7,7 +7,11 @@ version: "3.3"
 
 services:
     db:
-        image: mysql:8.0.26
+        image: glpidb # CHANGE
+        build:
+            context: ./glpidb
+            dockerfile: dockerfile
+            # args:
         restart: always
         networks:
             - web-db
@@ -15,6 +19,7 @@ services:
         volumes:
             - database:/var/lib/mysql # CHANGE
             - ./glpidb/scripts:/scripts
+            - ./stack_dumps/db_backups:/backups
         command: mysqld --default-authentication-plugin=mysql_native_password
         secrets:
             - MYSQL_DATABASE
