@@ -16,7 +16,8 @@
 
 # Script to create a web directory backup
 
-TIMESTAMP=$(date +"%FT%H-%M-%S")
+TIMESTAMP=$(date -u +"%FT%H-%M-%S")
+TIMESTAMP=$(date +"%FT%H-%M-%S%z")
 BACKUP_FILE_NAME=glpi_web_backup_"$TIMESTAMP"
 
 tar ckzf /backups/"$BACKUP_FILE_NAME".tar.gz /var/www/html

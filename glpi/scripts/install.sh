@@ -6,6 +6,7 @@
 # -----------------------------------------------------------------------------
 
 /scripts/install_glpi.sh
+/scripts/files_backer_cron.sh
 /scripts/install_fusioninventory.sh
 /scripts/_install_datainjection.sh
 /scripts/_install_mreporting.sh

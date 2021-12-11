@@ -24,7 +24,8 @@ RUN \
     && \
     docker-php-ext-install exif \
     && \
-    apt-get install -y libpng-dev libjpeg-dev && \
+    apt-get install -y libpng-dev libjpeg-dev libwebp-dev && \
+    docker-php-ext-configure gd --with-jpeg --with-webp &&\
     docker-php-ext-install gd \
     && \
     apt-get install -y libc-client-dev libkrb5-dev && \

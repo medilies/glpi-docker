@@ -22,7 +22,7 @@ curl -L https://github.com/fusioninventory/fusioninventory-for-glpi/releases/dow
     glpicli plugin:install fusioninventory -u glpi &&
     glpicli plugin:activate fusioninventory &&
     chown -R www-data /var/www/html &&
-    echo "* */6 * * * root php /var/www/html/front/cron.php &>/dev/null" >/etc/cron.d/fusioninventory_taskschedular &&
+    echo "* * * * * root php /var/www/html/front/cron.php &>/dev/null" >/etc/cron.d/fusioninventory_taskschedular &&
     chown root /etc/cron.d/fusioninventory_taskschedular &&
     chgrp root /etc/cron.d/fusioninventory_taskschedular &&
     chmod 0700 /etc/cron.d/fusioninventory_taskschedular &&
