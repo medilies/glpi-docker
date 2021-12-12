@@ -6,11 +6,11 @@
 # -----------------------------------------------------------------------------
 
 # Script to create a cronjob for web directory backup
-echo "0 */4 * * * root /scripts/files_backer.sh" >/etc/cron.d/files_backer &&
-    chown root /etc/cron.d/files_backer &&
-    chgrp root /etc/cron.d/files_backer &&
-    chmod 0700 /etc/cron.d/files_backer &&
-    # crontab -u root /etc/cron.d/files_backer &&
+echo "0 */8 * * * root /scripts/web_files_backer.sh" >/etc/cron.d/web_files_backer &&
+    chown root /etc/cron.d/web_files_backer &&
+    chgrp root /etc/cron.d/web_files_backer &&
+    chmod 0700 /etc/cron.d/web_files_backer &&
+    # crontab -u root /etc/cron.d/web_files_backer &&
     /etc/init.d/cron restart
 
 # NOTE

@@ -9,9 +9,9 @@
 
 MYSQL_DATABASE=$(cat /run/secrets/MYSQL_DATABASE)
 # MYSQL_USER=$(cat /run/secrets/MYSQL_USER)
-MYSQL_PASSWORD=$(cat /run/secrets/MYSQL_ROOT_PASSWORD)
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/MYSQL_ROOT_PASSWORD)
 
-TIMESTAMP=$(date +"%FT%H-%M-%S%z")
-BACKUP_FILE_NAME=glpi_db_backup_"$TIMESTAMP"
+echo "Enter the backup file path:"
+read -r DATABASE_BACKUP
 
-mysqldump --user=root --password="$MYSQL_PASSWORD" "$MYSQL_DATABASE" >/backups/"$BACKUP_FILE_NAME".sql
+mysql -uroot -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" <"$DATABASE_BACKUP"
