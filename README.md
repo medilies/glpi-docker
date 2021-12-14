@@ -46,9 +46,9 @@ docker container exec -it glpi_web_1 /scripts/full_setup.sh
 docker container exec -it glpi_db_1 /scripts/setup.sh
 ```
 
-The previous commands mainly install GLPI and its plugins, Set contabs to backup DB & web files daily.
+The previous commands mainly install GLPI with its plugins and Set crontabs to backup DB & web files daily.
 
-Now grap your favorite browser and enjoy managing your infrastructure with GLPI 😜
+> Now grab your favorite browser and enjoy managing your infrastructure with GLPI 😜
 
 ## Backup & Restoring
 
@@ -65,10 +65,10 @@ Now grap your favorite browser and enjoy managing your infrastructure with GLPI 
     ```shell
     docker container exec -it glpi_web_1 /scripts/web_files_backup.sh
     ```
-
+#### Where to find the dumped backups
 Backups are dumped into their respective containers `/backups` folder.
 
-NOTE: backup folder are mapped to the host system:
+**NOTE:** backup folders are mapped to the host system:
 
 -   DB: `glpi/stack_dumps/db_backups:/backups`
 -   WEB: `glpi/stack_dumps/web_files_backups:/backups`
@@ -87,7 +87,7 @@ NOTE: backup folder are mapped to the host system:
     docker container exec -it glpi_web_1 /scripts/web_files_restore.sh
     ```
 
-Both commands will ask you for the backup absolute path (`/backups/<timestamp>_glpi_db_backup.sql`,
+Both commands will ask you for the backup absolute path in the container (`/backups/<timestamp>_glpi_db_backup.sql`,
 `/backups/<timestamp>_glpi_web_backup.tar.gz`).
 
 ### Crontab backups
@@ -95,6 +95,8 @@ Both commands will ask you for the backup absolute path (`/backups/<timestamp>_g
 If you have followed the default installation, backup scripts are set to run every 8 hours (`0 */8 * * *`). That is set within `DB:/scripts/cron_db_backup.sh` `WEB:/scripts/cron_web_files_backer.sh`
 
 ## Stack customization
+
+(If you are familiare with Docker)
 
 Before starting the containers :
 
