@@ -9,6 +9,8 @@
     <img src="https://i0.wp.com/phpmagazine.net/wp-content/uploads/2020/09/php8.png?w=420&ssl=1" alt="PHP8 Logo" width="75"/>
 </div>
 
+Getting GLPI up and running on your system is a breeze now
+
 
 ## Get started
 
@@ -106,4 +108,4 @@ Before starting the containers :
 
 ## LICENCE
 
-The project is under the MIT licence so feel free to fork it and contribute to it 🚦🟩
+The project is under the MIT licence so feel free to fork it and contribute to it.
