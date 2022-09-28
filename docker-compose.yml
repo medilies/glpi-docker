@@ -6,100 +6,102 @@ version: "3.3"
 # -----------------------------------------------------------------------------
 
 services:
-    db:
-        image: glpidb # CHANGE
-        build:
-            context: ./glpidb
-            dockerfile: dockerfile
-            # args:
-        restart: always
-        networks:
-            - web-db
-            - admin-db
-        volumes:
-            - database:/var/lib/mysql # CHANGE
-            - ./glpidb/scripts:/scripts # [OPTIONAL for live editing / dev]
-            - ./stack_dumps/db_backups:/backups
-        command: mysqld --default-authentication-plugin=mysql_native_password
-        secrets:
-            - MYSQL_DATABASE
-            - MYSQL_ROOT_PASSWORD
-            - MYSQL_USER
-            - MYSQL_PASSWORD
-        environment:
-            - TZ=Africa/Algiers # CHANGE
-            - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
-            - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
-            - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
-            - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
-            # - MYSQL_INITDB_SKIP_TZINFO
-        healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-            interval: 20s
-            timeout: 10s
-            retries: 10
+  db:
+    image: glpidb # CHANGE
+    build:
+      context: ./glpidb
+      dockerfile: Dockerfile
+      # args:
+    restart: always
+    networks:
+      - web-db
+      - admin-db
+    volumes:
+      - database:/var/lib/mysql # CHANGE
+      - ./glpidb/scripts:/scripts # [OPTIONAL for live editing / dev]
+      - ./stack_dumps/db_backups:/backups
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    secrets:
+      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    environment:
+      - TZ=Africa/Algiers # CHANGE
+      - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
+      - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+      - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+      # - MYSQL_INITDB_SKIP_TZINFO
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 20s
+      timeout: 10s
+      retries: 10
 
-    web:
-        image: glpi # CHANGE
-        build:
-            context: ./glpi
-            dockerfile: dockerfile
-            # args:
-        restart: always
-        networks:
-            - web-db
-        depends_on:
-            - db
-        ports:
-            - 50080:80 # CHANGE
-        volumes:
-            - ./glpi/scripts:/scripts # [OPTIONAL for live editing / dev]
-            - ./stack_dumps/web_files_backups:/backups
-        secrets:
-            - DB_SERVER
-            - MYSQL_DATABASE
-            - MYSQL_USER
-            - MYSQL_PASSWORD
-        environment:
-            - GLPI_ROOT_PATH=/var/www/html
-            - TZ=Africa/Algiers # CHANGE
-            - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
-            - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
-            - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
-            - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
+  web:
+    image: glpi # CHANGE
+    build:
+      context: ./glpi
+      dockerfile: Dockerfile
+      # args:
+    restart: always
+    networks:
+      - web-db
+    depends_on:
+      - db
+    ports:
+      - 50080:80 # CHANGE
+    volumes:
+      - ./glpi/scripts:/scripts # [OPTIONAL for live editing / dev]
+      - ./stack_dumps/web_files_backups:/backups
+    secrets:
+      - DB_SERVER
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+    environment:
+      - GLPI_ROOT_PATH=/var/www/html
+      - TZ=Africa/Algiers # CHANGE
+      - MYSQL_DATABASE_FILE=/run/secrets/MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/MYSQL_ROOT_PASSWORD
+      - MYSQL_USER_FILE=/run/secrets/MYSQL_USER
+      - MYSQL_PASSWORD_FILE=/run/secrets/MYSQL_PASSWORD
 
-    phpmyadmin:
-        image: phpmyadmin:5.0-apache
-        depends_on:
-            - db
-        ports:
-            - 50180:80 # CHANGE
-        networks:
-            - admin-db
-        secrets:
-            - DB_SERVER
-        environment:
-            - TZ=Africa/Algiers # CHANGE
-            - PMA_HOST_FILE=/run/secrets/DB_SERVER
-            - UPLOAD_LIMIT=300M # CHANGE
+  phpmyadmin:
+    image: phpmyadmin:5.0-apache
+    depends_on:
+      - db
+    ports:
+      - 50180:80 # CHANGE
+    networks:
+      - admin-db
+    secrets:
+      - DB_SERVER
+    environment:
+      - TZ=Africa/Algiers # CHANGE
+      - PMA_HOST_FILE=/run/secrets/DB_SERVER
+      - UPLOAD_LIMIT=300M # CHANGE
 
 networks:
-    web-db:
-    admin-db:
+  web-db:
+  admin-db:
+
 
 volumes:
-    database: # CHANGE
+  database:
+    # CHANGE
 
 secrets:
-    DB_SERVER:
-        file: ./secrets/DB_SERVER
-    MYSQL_DATABASE:
-        file: ./secrets/MYSQL_DATABASE
-    DB_USERNAME_ROOT:
-        file: ./secrets/DB_USERNAME_ROOT
-    MYSQL_ROOT_PASSWORD:
-        file: ./secrets/MYSQL_ROOT_PASSWORD
-    MYSQL_USER:
-        file: ./secrets/MYSQL_USER
-    MYSQL_PASSWORD:
-        file: ./secrets/MYSQL_PASSWORD
+  DB_SERVER:
+    file: ./secrets/DB_SERVER
+  MYSQL_DATABASE:
+    file: ./secrets/MYSQL_DATABASE
+  DB_USERNAME_ROOT:
+    file: ./secrets/DB_USERNAME_ROOT
+  MYSQL_ROOT_PASSWORD:
+    file: ./secrets/MYSQL_ROOT_PASSWORD
+  MYSQL_USER:
+    file: ./secrets/MYSQL_USER
+  MYSQL_PASSWORD:
+    file: ./secrets/MYSQL_PASSWORD

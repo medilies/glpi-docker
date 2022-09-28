@@ -35,15 +35,25 @@ Download the latest release from this repo.
 Launch the stack (Assuming that `docker-compose.yml` is within the directory `glpi`)
 
 ```shell
-cd glpi
+git clone https://github.com/medilies/glpi-docker
+```
+
+```shell
+cd glpi-docker
+```
+
+```shell
 docker-compose up
 ```
 
 Install GLPI and our selected plugins
 
 ```shell
-docker container exec -it glpi_web_1 /scripts/full_setup.sh
-docker container exec -it glpi_db_1 /scripts/setup.sh
+docker container exec -it glpi-docker_web_1 /scripts/full_setup.sh
+```
+
+```shell
+docker container exec -it glpi-docker_db_1 /scripts/setup.sh
 ```
 
 The previous commands mainly install GLPI with its plugins and Set crontabs to backup DB & web files daily.
@@ -57,34 +67,34 @@ The previous commands mainly install GLPI with its plugins and Set crontabs to b
 -   DB backup
 
     ```shell
-    docker container exec -it glpi_db_1 /scripts/db_backup.sh
+    docker container exec -it glpi-docker_db_1 /scripts/db_backup.sh
     ```
 
 -   Web files backup
 
     ```shell
-    docker container exec -it glpi_web_1 /scripts/web_files_backup.sh
+    docker container exec -it glpi-docker_web_1 /scripts/web_files_backup.sh
     ```
 #### Where to find the dumped backups
 Backups are dumped into their respective containers `/backups` folder.
 
 **NOTE:** backup folders are mapped to the host system:
 
--   DB: `glpi/stack_dumps/db_backups:/backups`
--   WEB: `glpi/stack_dumps/web_files_backups:/backups`
+-   DB: `glpi-docker/stack_dumps/db_backups:/backups`
+-   WEB: `glpi-docker/stack_dumps/web_files_backups:/backups`
 
 ### Manual backups restorations
 
 -   DB restoration
 
     ```shell
-    docker container exec -it glpi_db_1 /scripts/db_restore.sh
+    docker container exec -it glpi-docker_db_1 /scripts/db_restore.sh
     ```
 
 -   Web files restoration
 
     ```shell
-    docker container exec -it glpi_web_1 /scripts/web_files_restore.sh
+    docker container exec -it glpi-docker_web_1 /scripts/web_files_restore.sh
     ```
 
 Both commands will ask you for the backup absolute path in the container (`/backups/<timestamp>_glpi_db_backup.sql`,

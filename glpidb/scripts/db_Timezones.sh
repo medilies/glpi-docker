@@ -10,4 +10,4 @@ Q1="USE $MYSQL_DATABASE;"
 Q2="GRANT SELECT ON mysql.time_zone_name TO '$MYSQL_USER'@'%';"
 Q3="FLUSH PRIVILEGES;"
 
-mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "$Q1 $Q2 $Q3"
+MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -u root -e "$Q1 $Q2 $Q3"

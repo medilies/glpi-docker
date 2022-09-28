@@ -58,7 +58,7 @@ COPY ./glpi.ini /usr/local/etc/php/conf.d/glpi.ini
 RUN apt-get install -y cron unzip && \
     apt-get clean
 
-RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/root/.bashrc 
+RUN echo 'alias glpicli="/var/www/html/bin/console"' >>/root/.bashrc
 
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*
